@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <libpic30.h>
 #include <delay.h>
+#include "Motors.h"
 
 /* Initialize global variables */
 int leftIndex, rightIndex;
