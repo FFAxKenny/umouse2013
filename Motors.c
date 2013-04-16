@@ -10,15 +10,13 @@ const unsigned char leftSequence[] = {
     0x01, 
     0x02, 
     0x04, 
-    0x08, 
-    0x00
+    0x08
 };
 const unsigned char rightSequence[] = { 
     0x08, 
     0x04, 
     0x02, 
-    0x01, 
-    0x00
+    0x01
 };
 
 int DIR;
