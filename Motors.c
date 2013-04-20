@@ -30,7 +30,7 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
         // pulse right motor forward
         rightIndex += 1;	
         rightIndex %= 4;
-        PORTB = rightSequence[rightIndex];
+        PORTB = (PORTB & RS_AND) + rightSequence[rightIndex];
     }
     else{	
         // pulse right motor reverse direction
