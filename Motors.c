@@ -7,13 +7,13 @@
 /* Initialize global variables */
 int leftIndex = 0,
 	rightIndex = 0;
-const unsigned char leftSequence[] = {
+const unsigned int leftSequence[] = {
     0x01, 
     0x02, 
     0x04, 
     0x08
 };
-const unsigned char rightSequence[] = { 
+const unsigned int rightSequence[] = { 
     0x08, 
     0x04, 
     0x02, 
