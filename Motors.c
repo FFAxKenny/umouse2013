@@ -5,7 +5,8 @@
 #include "Motors.h"
 
 /* Initialize global variables */
-int leftIndex, rightIndex;
+int leftIndex = 0,
+	rightIndex = 0;
 const unsigned char leftSequence[] = {
     0x01, 
     0x02, 
