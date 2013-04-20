@@ -8,16 +8,16 @@
 int leftIndex = 0,
 	rightIndex = 0;
 const unsigned int leftSequence[] = {
-    0x01, 
-    0x02, 
-    0x04, 
-    0x08
+	LS_0, 
+	LS_1, 
+	LS_2, 
+	LS_3
 };
 const unsigned int rightSequence[] = { 
-    0x08, 
-    0x04, 
-    0x02, 
-    0x01
+	RS_0,
+	RS_1,
+	RS_2,
+	RS_3
 };
 
 int DIR;
