@@ -22,6 +22,7 @@ const unsigned int rightSequence[] = {
 
 int DIR;
 
+// Use timer 1 for right motor
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
 {
     //  T1CONbits.TON = 0;   // turn off TMR1
@@ -31,20 +32,39 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
         rightIndex += 1;	
         rightIndex %= 4;
         PORTB = (PORTB & RS_AND) + rightSequence[rightIndex];
+    }
+    else{	
+        // pulse right motor reverse direction
+        rightIndex += 3;	
+        rightIndex %= 4;
+        PORTB = (PORTB & RS_AND) + rightSequence[rightIndex];
+    }
+
+    IFS0bits.T1IF = 0; // turn off TMR1 flag
+    //	T1CONbits.TON = 1;
+
+}
+
+// Use timer 2 for left motor
+void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void)
+{
+    //  T2CONbits.TON = 0;   // turn off TMR1
+    if(DIR == FORWARD)
+    {	
         // pulse left motor forward
         leftIndex += 1;	
         leftIndex %= 4;
         PORTB = (PORTB & LS_AND) + leftSequence[leftIndex];
     }
     else{	
-        // pulse right motor reverse direction
-        rightIndex += 3;	
-        rightIndex %= 4;
-        PORTB = rightSequence[rightIndex];
+        // pulse left motor reverse direction
+        leftIndex += 3;	
+        leftIndex %= 4;
+        PORTB = (PORTB & LS_AND) + leftSequence[leftIndex];
     }
 
-    IFS0bits.T1IF = 0; // turn off TMR1 flag
-    //	T1CONbits.TON = 1;
+    IFS0bits.T2IF = 0; // turn off TMR2 flag
+    //	T2CONbits.TON = 1;
 
 }
 /* End Interrupt Definitions */
@@ -83,6 +103,20 @@ int main(void)
     T1CONbits.TCS = 0; // internal clock
     PR1=0x30FF;  // max speed using prescale 01
     T1CONbits.TON = 1; // turn on timer 1
+
+    // set 16 bit
+    //	T2CONbits.RD16 = 1;
+    // set up timer 2 prescaler for 1:2
+    T2CONbits.TCKPS1 = 0;
+    T2CONbits.TCKPS0 = 1;
+    IPC1bits.T2IP2 = 1; // TMR 1 high priority
+    IPC1bits.T2IP1 = 1; // TMR 1 high priority
+    IPC1bits.T2IP0 = 1; // TMR 1 high priority
+    IEC0bits.T2IE = 1; // enable the timer 1 interrupt
+    IFS0bits.T2IF = 0; // turn off TMR1 flag
+    T2CONbits.TCS = 0; // internal clock
+    PR2=0x30FF;  // max speed using prescale 01
+    T2CONbits.TON = 1; // turn on timer 1
     while (1){}
 
 
