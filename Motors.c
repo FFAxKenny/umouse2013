@@ -101,7 +101,7 @@ int main(void)
     IEC0bits.T1IE = 1; // enable the timer 1 interrupt
     IFS0bits.T1IF = 0; // turn off TMR1 flag
     T1CONbits.TCS = 0; // internal clock
-    PR1=0x30FF;  // max speed using prescale 01
+    PR1=PR1_MAX;  // max speed using prescale 01
     T1CONbits.TON = 1; // turn on timer 1
 
     // set 16 bit
@@ -115,7 +115,7 @@ int main(void)
     IEC0bits.T2IE = 1; // enable the timer 1 interrupt
     IFS0bits.T2IF = 0; // turn off TMR1 flag
     T2CONbits.TCS = 0; // internal clock
-    PR2=0x30FF;  // max speed using prescale 01
+    PR2=PR2_MAX;  // max speed using prescale 01
     T2CONbits.TON = 1; // turn on timer 1
     while (1){}
 

@@ -8,6 +8,12 @@
 #define STOP 	 5
 #define TURN     6
 
+// Values for right prescaler
+#define PR1_MAX 0x30FF
+
+// Values for left prescaler
+#define PR2_MAX 0x30FF
+
 // Values to AND for left and right sequence
 #define LS_AND	0b1100001111111111
 #define RS_AND	0b1111110000111111
