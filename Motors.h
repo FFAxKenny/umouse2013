@@ -23,3 +23,8 @@
 #define RS_1	0b0000000100000000
 #define RS_2	0b0000000010000000
 #define RS_3	0b0000000001000000
+
+// step count for turns
+#define R_STEP 81
+#define L_STEP 81
+#define T_STEP 162

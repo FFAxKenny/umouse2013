@@ -76,10 +76,18 @@ void config_interrupts(void) {
     IFS0bits.T2IF = 0; // turn off TMR1 flag
     T2CONbits.TCS = 0; // internal clock
     PR2=PR2_MAX;  // max speed using prescale 01
+	
+	// set 16 bit
+    // set up timer 4 prescaler for 1:256
+    T4CONbits.TCKPS1 = 1;
+    T4CONbits.TCKPS0 = 1;
+    IPC6bits.T4IP2 = 1; // TMR 4 high priority
+    IPC6bits.T4IP1 = 1; // TMR 4 high priority
+    IPC6bits.T4IP0 = 1; // TMR 4 high priority
+    IEC1bits.T4IE = 1; // enable the timer 4 interrupt
+    IFS1bits.T4IF = 0; // turn off TMR4 flag
+    T4CONbits.TCS = 0; // internal clock
 
-	// Turn on timers
-    T1CONbits.TON = 1; // turn on timer 1
-    T2CONbits.TON = 1; // turn on timer 2
 }
 
 // configure clock

@@ -8,3 +8,6 @@ extern unsigned int L_SEQ[4];
 
 extern unsigned int R_SEQ[4];
 
+extern int DELAY_COUNT;
+extern int RDY;
+extern int ST_COUNT;
