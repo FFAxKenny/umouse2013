@@ -10,6 +10,9 @@
 // initialize the mouse
 void init_all(void);
 
+// initialize global variables
+void init_globals(void);
+
 // configure interrupts
 void config_interrupts(void);
 

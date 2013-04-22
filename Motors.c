@@ -1,25 +1,9 @@
-#include <p33FJ128MC802.h>
-//#include <stdio.h>
-//#include <libpic30.h>
-//#include <delay.h>
-#include "Motors.h"
-#include "config.h"
+// contains functions for configuration
+// and initialization
 
-/* Initialize global variables */
-int leftIndex = 0,
-	rightIndex = 0;
-const unsigned int leftSequence[] = {
-	LS_0, 
-	LS_1, 
-	LS_2, 
-	LS_3
-};
-const unsigned int rightSequence[] = { 
-	RS_0,
-	RS_1,
-	RS_2,
-	RS_3
-};
+#include <p33FJ128MC802.h>
+#include "main.h"
+#include "motors.h"
 
 int DIR;
 
@@ -30,15 +14,15 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
     if(DIR == FORWARD)
     {	
         // pulse right motor forward
-        rightIndex += 1;	
-        rightIndex %= 4;
-        PORTB = (PORTB & RS_AND) + rightSequence[rightIndex];
+		R_IND += 1;	
+        R_IND %= 4;
+        PORTB = (PORTB & RS_AND) + R_SEQ[R_IND];
     }
     else{	
         // pulse right motor reverse direction
-        rightIndex += 3;	
-        rightIndex %= 4;
-        PORTB = (PORTB & RS_AND) + rightSequence[rightIndex];
+        R_IND += 3;	
+        R_IND %= 4;
+        PORTB = (PORTB & RS_AND) + R_SEQ[R_IND];
     }
 
     IFS0bits.T1IF = 0; // turn off TMR1 flag
@@ -53,28 +37,18 @@ void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void)
     if(DIR == FORWARD)
     {	
         // pulse left motor forward
-        leftIndex += 1;	
-        leftIndex %= 4;
-        PORTB = (PORTB & LS_AND) + leftSequence[leftIndex];
+        L_IND += 1;	
+        L_IND %= 4;
+        PORTB = (PORTB & LS_AND) + L_SEQ[L_IND];
     }
     else{	
         // pulse left motor reverse direction
-        leftIndex += 3;	
-        leftIndex %= 4;
-        PORTB = (PORTB & LS_AND) + leftSequence[leftIndex];
+        L_IND += 3;	
+        L_IND %= 4;
+        PORTB = (PORTB & LS_AND) + L_SEQ[L_IND];
     }
 
     IFS0bits.T2IF = 0; // turn off TMR2 flag
     //	T2CONbits.TON = 1;
 
 }
-/* End Interrupt Definitions */
-int main(void)
-{
-	// initialize the mouse
-	init_all();
-
-    DIR =  FORWARD;
-    while (1){}
-}
-

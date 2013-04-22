@@ -3,9 +3,20 @@
 
 #include <p33FJ128MC802.h>
 #include "config.h"
+#include "main.h"
+#include "motors.h"
+
+int L_IND;
+int R_IND;
+
+unsigned int L_SEQ[4];
+unsigned int R_SEQ[4];
 
 // initialize the mouse
 void init_all(void) {
+	// initialize global variables
+	init_globals();
+
 	// initialize clock
 	init_clock();
 
@@ -14,6 +25,25 @@ void init_all(void) {
 
 	// configure I/O
 	config_io();
+}
+
+// initialize global variables
+void init_globals(void) {
+	/* Initialize global variables */
+	// Indices
+	L_IND = 0;
+	R_IND = 0;
+
+	// Sequences
+	L_SEQ[0] =	LS_0;
+	L_SEQ[1] =	LS_1;
+	L_SEQ[2] =	LS_2;
+	L_SEQ[3] =	LS_3;
+
+	R_SEQ[0] =	RS_0;
+	R_SEQ[1] =	RS_1;
+	R_SEQ[2] =	RS_2;
+	R_SEQ[3] =	RS_3;
 }
 
 // configure interrupts
