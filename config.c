@@ -33,7 +33,6 @@ void config_interrupts(void) {
     IFS0bits.T1IF = 0; // turn off TMR1 flag
     T1CONbits.TCS = 0; // internal clock
     PR1=PR1_MAX;  // max speed using prescale 01
-    T1CONbits.TON = 1; // turn on timer 1
 
     // set 16 bit
     //	T2CONbits.RD16 = 1;
@@ -47,7 +46,10 @@ void config_interrupts(void) {
     IFS0bits.T2IF = 0; // turn off TMR1 flag
     T2CONbits.TCS = 0; // internal clock
     PR2=PR2_MAX;  // max speed using prescale 01
-    T2CONbits.TON = 1; // turn on timer 1
+
+	// Turn on timers
+    T1CONbits.TON = 1; // turn on timer 1
+    T2CONbits.TON = 1; // turn on timer 2
 }
 
 // configure clock
