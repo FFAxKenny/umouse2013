@@ -128,6 +128,8 @@ void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void)
 	}
 
     IFS1bits.T4IF = 0; // turn off TMR2 flag
+   // PR4=PR4_MAX;  // max speed using prescale 01
+	
 }
 
 // configure clock
@@ -148,6 +150,7 @@ void init_clock(void) {
 
 // configure io
 void config_io(void) {
+	TRISA=1;
 	TRISB=0;
     AD1PCFGL = 0xFFFF;
 }
