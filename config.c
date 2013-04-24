@@ -5,6 +5,7 @@
 #include "config.h"
 #include "main.h"
 #include "motors.h"
+#include "adc.h"
 
 int L_IND;
 int R_IND;
@@ -31,6 +32,9 @@ void init_all(void) {
 
 	// configure I/O
 	config_io();
+
+    // initialize ADC
+    ADC_Init();
 }
 
 // initialize global variables
