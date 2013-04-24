@@ -5,11 +5,6 @@
 #include "main.h"
 #include "motors.h"
 
-int DIR;
-int DELAY_COUNT; //counter for delay
-int RDY;// flag for when mouse is ready
-int ST_COUNT; // step turn counter
-
 // Use timer 1 for right motor
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
 {
@@ -89,13 +84,3 @@ void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void)
     //	T2CONbits.TON = 1;
 
 }
-// Use timer 4 for delay/counting
-void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void)
-{
-    DELAY_COUNT ++;
-	if(DELAY_COUNT == 5) // delays 2.5s
-		RDY = 1;
-
-    IFS1bits.T4IF = 0; // turn off TMR2 flag
-}
-/* End Interrupt Definitions */

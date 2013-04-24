@@ -12,6 +12,12 @@ int R_IND;
 unsigned int L_SEQ[4];
 unsigned int R_SEQ[4];
 
+int DELAY_COUNT; //counter for delay
+int RDY;// flag for when mouse is ready
+
+int ST_COUNT;  // counter for steps
+int DIR; // direction
+
 // initialize the mouse
 void init_all(void) {
 	// initialize global variables
@@ -44,6 +50,18 @@ void init_globals(void) {
 	R_SEQ[1] =	RS_1;
 	R_SEQ[2] =	RS_2;
 	R_SEQ[3] =	RS_3;
+
+	// Delay count
+	DELAY_COUNT = 0;
+
+	// Ready
+	RDY = 0;
+
+	// Step count
+	ST_COUNT = 0;
+
+	// Direction
+	DIR = FORWARD;
 }
 
 // configure interrupts
@@ -88,6 +106,28 @@ void config_interrupts(void) {
     IFS1bits.T4IF = 0; // turn off TMR4 flag
     T4CONbits.TCS = 0; // internal clock
 
+	// start timers
+
+	T4CONbits.TON = 1; 	// turn on timer 4
+	while(!RDY){}		// use timer 4 to delay startup
+	
+	// Turn on timers
+    T1CONbits.TON = 1; // turn on timer 1
+    T2CONbits.TON = 1; // turn on timer 2
+	T4CONbits.TON = 0; // turn off timer 4
+
+}
+
+// wait to start the timers
+// Use timer 4 for delay/counting
+void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void)
+{
+    DELAY_COUNT ++;
+	if(DELAY_COUNT == 5) { // delays 2.5s
+		RDY = 1;
+	}
+
+    IFS1bits.T4IF = 0; // turn off TMR2 flag
 }
 
 // configure clock
