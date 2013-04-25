@@ -141,7 +141,8 @@ void config_interrupts(void) {
 
 	// prevent inital drift
 	DIR = FORWARD;	// move forward for a while
-	while(ADCValue < 2000);	// wait for signal
+	// Use timer 4 to wait
+	delay_T4(5);
 	DIR = STOP;		// stop
     PR1=PR1_MAX;  // reset to mapping speed
     PR2=PR2_MAX;  // reset to mapping speed
@@ -150,7 +151,7 @@ void config_interrupts(void) {
 	delay_T4(5);
 
 	// Wait for go signal
-	while(ADCValue < 2000);
+	while(ADC_Sample() < 2000);
 
 	// Use timer 4 to wait again
 	delay_T4(5);

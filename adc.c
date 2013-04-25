@@ -67,6 +67,15 @@ void ADC_Init(void)
 
 }
 
+int ADC_Sample(void) {
+        AD1CON1bits.SAMP = 1;           // Start Conversion
+        ADC1BUF0 = 0x0000;              // Clear ADC1 Buffer
+        AD1CON1bits.SAMP = 0;           // Start Conversion
+        while (!AD1CON1bits.DONE);      // Conversion done? Waiting for 1
+        AD1CON1bits.DONE = 0;           // Clear conversion done status bit
+		return ADC1BUF0;
+}
+
 //_ADCInterrupt() is the A/D interrupt service routine (ISR).
 //The routine must have global scope in order to be an ISR.
 //The ISR name is chosen from the device linker script.
