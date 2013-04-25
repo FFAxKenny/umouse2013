@@ -6,6 +6,7 @@
 #include "main.h"
 #include "motors.h"
 #include "adc.h"
+#include "delay_T4.h"
 
 int L_IND;
 int R_IND;
@@ -14,6 +15,7 @@ unsigned int L_SEQ[4];
 unsigned int R_SEQ[4];
 
 int DELAY_COUNT; //counter for delay
+int MAX_DELAY;	 // the max delay cycles
 int RDY;// flag for when mouse is ready
 
 int ST_COUNT;  // counter for steps
@@ -136,20 +138,25 @@ void config_interrupts(void) {
 	// start timers
     T1CONbits.TON = 1; // turn on timer 1
     T2CONbits.TON = 1; // turn on timer 2
-	T4CONbits.TON = 1; 	// turn on timer 4
 
 	// prevent inital drift
-	DIR = FORWARD;
-	while(!RDY){}		// use timer 4 to delay startup
-	DIR = STOP;
-    PR1=PR1_MAX;  // max speed using prescale 01
-    PR2=PR2_MAX;  // max speed using prescale 01
+	DIR = FORWARD;	// move forward for a while
+	while(ADCValue < 2000);	// wait for signal
+	DIR = STOP;		// stop
+    PR1=PR1_MAX;  // reset to mapping speed
+    PR2=PR2_MAX;  // reset to mapping speed
 
-	// Turn off timer 4
-	T4CONbits.TON = 0; // turn off timer 4
+	// Use timer 4 to wait
+	delay_T4(5);
 
 	// Wait for go signal
-	
+	while(ADCValue < 2000);
+
+	// Use timer 4 to wait again
+	delay_T4(5);
+
+	// Go!
+	DIR = FORWARD;
 }
 
 // wait to start the timers
@@ -157,11 +164,10 @@ void config_interrupts(void) {
 void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void)
 {
     DELAY_COUNT ++;
-	if(DELAY_COUNT == 5) { // delays 2.5s
+	if(DELAY_COUNT >= MAX_DELAY) { // delays 2.5s
 		RDY = 1;
 	}
 
-    IFS1bits.T4IF = 0; // turn off TMR2 flag
-   // PR4=PR4_MAX;  // max speed using prescale 01
+    IFS1bits.T4IF = 0; // turn off TMR4 flag
 	
 }

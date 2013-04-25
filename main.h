@@ -4,6 +4,7 @@ extern int L_IND,
 	R_IND,
 	DIR,
     DELAY_COUNT,
+	MAX_DELAY,
     RDY,
     ST_COUNT;
 
