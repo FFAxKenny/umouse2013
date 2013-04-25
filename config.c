@@ -154,7 +154,7 @@ void init_clock(void) {
 
 // configure io
 void config_io(void) {
-	TRISA=1;
-	TRISB=0;
+	TRISA=0b11;
+	TRISB=0x0003;
     AD1PCFGL = 0xFFFF;
 }
