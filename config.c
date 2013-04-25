@@ -144,8 +144,8 @@ void config_interrupts(void) {
 	// Use timer 4 to wait
 	delay_T4(5);
 	DIR = STOP;		// stop
-    PR1=PR1_MAX;  // reset to mapping speed
-    PR2=PR2_MAX;  // reset to mapping speed
+    PR1=PR1_MAP;  // reset to mapping speed
+    PR2=PR2_MAP;  // reset to mapping speed
 
 	// Use timer 4 to wait
 	delay_T4(5);

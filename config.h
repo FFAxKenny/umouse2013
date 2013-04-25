@@ -2,12 +2,16 @@
 // for configuration and initialization
 
 // Values for right prescaler
-#define PR1_MAX		0x30FF
-#define PR1_INIT	0x8000
+#define PR1_MAP		0x7000	// Max prescaler for tracking
+#define PR1_TRACK	0x0700	// CURRENT_MAX-PR1_TRACK = MAX_GAIN
+#define PR1_CORRECT	2		// Incremental gain
+#define PR1_INIT	0x8000	// To prevent inital drift
 
 // Values for left prescaler
-#define PR2_MAX 	0x30FF
-#define PR2_INIT	0x8000
+#define PR2_MAP 	0x7000	// Max prescaler for tracking
+#define PR2_TRACK	0x0700	// CURRENT_MAX-PR2_TRACK = MAX_GAIN
+#define PR2_CORRECT	2		// Incremental gain
+#define PR2_INIT	0x8000	// To prevent inital drift
 
 // initialize the mouse
 void init_all(void);

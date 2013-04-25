@@ -6,13 +6,14 @@
 #include "config.h"
 #include "main.h"
 #include "adc.h"
+#include "track.h"
 
 /* End Interrupt Definitions */
 int main(void)
 {
     int ADCValue = 0;
-	int L_TIME = PR1_MAX,
-		R_TIME = PR1_MAX;
+	int L_TIME = PR1_MAP,
+		R_TIME = PR1_MAP;
 	// initialize the mouse
 	init_all();
 
@@ -21,21 +22,28 @@ int main(void)
 		//Convert
 		ADCValue = ADC_Sample();
 
-		if(ADCValue > 3150)
+		if(ADCValue > BL_MID+BL_DELTA)	// If too close
 		{	
-			R_TIME += 1;L_TIME -= 1;
-			PR1 = R_TIME; PR2 = L_TIME;
-			if (L_TIME < 0x30CC) L_TIME =0x30CC;
-			if(R_TIME >  0x40CC) R_TIME = 0x40CC;
+			R_TIME += PR1_CORRECT;
+			L_TIME -= PR2_CORRECT;
+			PR1 = R_TIME;
+			PR2 = L_TIME;
+			if (L_TIME < PR2_MAP-PR2_TRACK) L_TIME =PR2_MAP-PR2_TRACK;
+			if(R_TIME >  PR1_MAP) R_TIME = PR1_MAP;
 		}
-		else if(ADCValue < 3090)
+		else if(ADCValue < BL_MID-BL_DELTA)	// If too far
 		{
-			R_TIME -= 1;L_TIME += 1;
-			PR1 = R_TIME; PR2 = L_TIME;
-			if (R_TIME < 0x30CC) R_TIME =0x30CC;
-			if(L_TIME >  0x40CC) L_TIME = 0x40CC;
+			R_TIME -= PR1_CORRECT;
+			L_TIME += PR2_CORRECT;
+			PR1 = R_TIME;
+			PR2 = L_TIME;
+			if (R_TIME < PR1_MAP-PR1_TRACK) R_TIME = PR1_MAP-PR1_TRACK;
+			if(L_TIME >  PR2_MAP) L_TIME = PR2_MAP;
 		}
-		else R_TIME = L_TIME = PR1_MAX;
+		else {
+			R_TIME = PR1_MAP;
+			L_TIME = PR2_MAP;
+		}
 	}
 }
 
