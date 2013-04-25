@@ -17,7 +17,7 @@ int main(void)
 
     while (1){
 
-        //Convert
+		//Convert
 
         AD1CON1bits.SAMP = 1;           // Start Conversion
         ADC1BUF0 = 0x0000;              // Clear ADC1 Buffer
@@ -28,7 +28,7 @@ int main(void)
    //     if(ADCValue > 2000) DIR = STOP;
      //   else DIR = TURN;
 	
-	if(ADCValue > 3150)
+		if(ADCValue > 3150)
 		{	
 			R_TIME += 1;L_TIME -= 1;
 			PR1 = R_TIME; PR2 = L_TIME;
@@ -43,6 +43,6 @@ int main(void)
 			if(L_TIME >  0x40CC) L_TIME = 0x40CC;
 		}
 		else R_TIME = L_TIME = PR1_MAX;
-    }
+	}
 }
 
