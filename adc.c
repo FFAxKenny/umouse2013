@@ -56,11 +56,13 @@ void ADC_Init(void)
     AD1CON3bits.ADCS = 8;
     AD1CON4 = 0x0000;                   // A/D Control Register 4
 
-    AD1CSSLbits.CSS0 = 1;               // Select AN0 Sensor L2
-    AD1CSSLbits.CSS1 = 0;
-    AD1CSSLbits.CSS4 = 0;
-    AD1CSSLbits.CSS5 = 0;
-    AD1PCFGL = 0xFFFE;
+    	AD1CHS0bits.CH0SA = 1;
+	AD1CHS0bits.CH0NA = 0;
+		AD1PCFGL = 0xFFFF;
+	AD1PCFGLbits.PCFG0 = 0; // AN0 as Analog Input
+	AD1PCFGLbits.PCFG1 = 0; // AN1 as Analog Input
+	AD1PCFGLbits.PCFG2 = 0; // AN2 as Analog Input
+	AD1PCFGLbits.PCFG3 = 0; // AN3 as Analog Input
     AD1CON1bits.ADON = 1;               // Begin Sampling Sequence
 
 }
