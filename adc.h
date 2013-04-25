@@ -1,4 +1,3 @@
-//Functions and Variables with Global Scope:
+// function prototypes for adc.c
 void ADC_Init(void);
-// void __attribute__((__interrupt__)) _ADC1Interrupt(void);
 
