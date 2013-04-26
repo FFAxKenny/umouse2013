@@ -20,7 +20,7 @@ int main(void)
     while (1){
 
 		//Convert
-		ADCValue = ADC_Sample();
+		ADCValue = ADC_Sample(0);
 
 		if(ADCValue > BL_MID+BL_DELTA)	// If too close
 		{	

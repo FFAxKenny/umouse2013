@@ -151,7 +151,7 @@ void config_interrupts(void) {
 	delay_T4(5);
 
 	// Wait for go signal
-	while(ADC_Sample() < 2000);
+	while(ADC_Sample(0) < 2000);
 
 	// Use timer 4 to wait again
 	delay_T4(5);

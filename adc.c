@@ -37,7 +37,6 @@
 
 #include <p33FJ128MC802.h>
 
-
 unsigned int ADResult1 = 0;
 unsigned int ADResult2 = 0;
 
@@ -67,13 +66,14 @@ void ADC_Init(void)
 
 }
 
-int ADC_Sample(void) {
-        AD1CON1bits.SAMP = 1;           // Start Conversion
-        ADC1BUF0 = 0x0000;              // Clear ADC1 Buffer
-        AD1CON1bits.SAMP = 0;           // Start Conversion
-        while (!AD1CON1bits.DONE);      // Conversion done? Waiting for 1
-        AD1CON1bits.DONE = 0;           // Clear conversion done status bit
-		return ADC1BUF0;
+int ADC_Sample(int an_sel) {
+	AD1CHS0bits.CH0SA = an_sel;
+	AD1CON1bits.SAMP = 1;           // Start Conversion
+	ADC1BUF0 = 0x0000;              // Clear ADC1 Buffer
+	AD1CON1bits.SAMP = 0;           // Start Conversion
+	while (!AD1CON1bits.DONE);      // Conversion done? Waiting for 1
+	AD1CON1bits.DONE = 0;           // Clear conversion done status bit
+	return ADC1BUF0;
 }
 
 //_ADCInterrupt() is the A/D interrupt service routine (ISR).
