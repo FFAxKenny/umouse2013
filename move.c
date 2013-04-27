@@ -12,7 +12,7 @@
 
 void stop(void) {
 	DIR = STOP;
-	delay_T4(1);
+	delay_T4(2);
 }
 
 // Turn with direction from decide.c
@@ -20,12 +20,15 @@ void turn(int direction) {
     // change the direction of the motors
     switch(direction) {
         case L_TURN:
+			stop();
             DIR = LEFT;
             break;
         case R_TURN:
+			stop();
             DIR = RIGHT;
             break;
         case U_TURN:
+			stop();
             DIR = TURN;
             break;
         case NO_TURN:
@@ -36,6 +39,7 @@ void turn(int direction) {
 
     // wait for the turn to finish
     while(DIR != STOP);
+	if(direction != NO_TURN) stop();
 }
 
 // Go forward 1 cell
@@ -80,11 +84,15 @@ void track(void) {
             // total error < -100 means mouse is left of center
             //needs to push off left wall now
             //(this needs to be clarified maybe ask tyler)
-            if(totalError < -100 || avgADC < 1000)  //stop using right
+            if(totalError < -100)  //stop using right
             {
                 sensor = 1;  // switch sensor
                 totalError = 0; // dont change the motor speed
             }
+			else if (avgADC < 1000)  {
+                sensor = 1;  // switch sensor
+                totalError = -1000; // dont change the motor speed
+			}
         }
         else  // using left sensor same thing
         {
@@ -94,10 +102,15 @@ void track(void) {
             oldErrorP = errorP;
             if(totalError > 2000) totalError = 2000; // cap
             // 2136 for LEFT SENSOR
-            if(totalError < -100 || avgADC < 1000)  // stop using left
+            if(totalError < -100)  // stop using left
             {
                 sensor = 0;
                 totalError = 0;
+            } 
+            else if(avgADC < 1000)  // stop using left
+            {
+                sensor = 0;
+                totalError = -1000;
             } 
             if(avgADC > 2000 && avgADC < 2200)
                 totalError = 0;

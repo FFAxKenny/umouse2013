@@ -8,13 +8,7 @@ void solve(void) {
 		// move forward 1 cell
 		track();
 
-		// stop
-		stop();
-
 		// get direction and turn
 		turn(r_wall());
-
-		// stop again
-		stop();
 	}
 }
