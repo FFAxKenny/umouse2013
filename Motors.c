@@ -15,14 +15,17 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
 		R_IND += 1;	
         R_IND %= 4;
         PORTB = (PORTB & RS_AND) + R_SEQ[R_IND];
-		if(DIR == LEFT)
-		{	
-			ST_COUNT ++;   // increment turn steps
-			if(ST_COUNT == L_STEP)  // when enough steps are taken
-			{
-				DIR = STOP;		// stop turning
-				ST_COUNT=0;		// reset turn count
-			}
+
+		ST_COUNT ++;   // increment turn steps
+		if(DIR == LEFT && ST_COUNT == L_STEP)  // when enough steps are taken
+		{
+			DIR = STOP;		// stop turning
+			ST_COUNT=0;		// reset turn count
+		}
+		if(DIR == FORWARD && ST_COUNT == F_STEP)  // when enough steps are taken
+		{
+			DIR = STOP;		// stop turning
+			ST_COUNT=0;		// reset turn count
 		}
     }
 	else if(DIR == BACKWARD || DIR == RIGHT || DIR == TURN)
@@ -31,8 +34,8 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
         R_IND += 3;	
         R_IND %= 4;
         PORTB = (PORTB & RS_AND) + R_SEQ[R_IND];
-		if(DIR == RIGHT || DIR == TURN)
-		{	
+//		if(DIR == RIGHT || DIR == TURN)
+//		{	
 			ST_COUNT ++;   // increment turn steps
 			// when enough steps are taken
 			if(DIR == RIGHT && ST_COUNT == R_STEP) 
@@ -45,7 +48,12 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
 				DIR = STOP;		// stop turning
 				ST_COUNT=0;		// reset turn count
 			}
-		}
+//			if(DIR == BACKWARD && ST_COUNT == B_STEP)
+//			{
+//				DIR = STOP;		// stop turning
+//				ST_COUNT=0;		// reset turn count
+//			}
+//		}
 	}
 	// stop
     else	{
@@ -78,6 +86,7 @@ void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void)
 	// stop
     else	{
         PORTB = (PORTB & LS_AND);
+		DIR = STOP;
     }
 
     IFS0bits.T2IF = 0; // turn off TMR2 flag
