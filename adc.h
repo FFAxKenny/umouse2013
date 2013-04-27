@@ -2,10 +2,10 @@
 #define ADC_H
 
 // function prototypes and macros for adc.c
-#define RF_SENSOR   0
-#define LF_SENSOR   1
-#define R_SENSOR    2
-#define L_SENSOR    3
+#define R_SENSOR     0
+#define L_SENSOR     1
+#define RF_SENSOR    2
+#define LF_SENSOR    3
 
 void ADC_Init(void);
 
