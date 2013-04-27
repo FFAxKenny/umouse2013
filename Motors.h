@@ -1,3 +1,6 @@
+#ifndef MOTORS_H
+#define MOTORS_H
+
 //Direction macros
 //Tell the mouse which 
 //direction to go
@@ -28,3 +31,4 @@
 #define R_STEP 81
 #define L_STEP 81
 #define T_STEP 162
+#endif

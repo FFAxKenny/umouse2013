@@ -1,3 +1,6 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
 // contains macros and function prototypes
 // for configuration and initialization
 
@@ -27,3 +30,4 @@ void init_clock(void);
 
 // configure io
 void config_io(void);
+#endif

@@ -1,3 +1,6 @@
+#ifndef WALLS_H
+#define WALLS_H
+
 // macros and prototypes for walls.c
 #include <stdbool.h>
 
@@ -9,4 +12,4 @@
 bool left_wall(void);
 bool front_wall(void);
 bool right_wall(void);
-
+#endif

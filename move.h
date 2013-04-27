@@ -1,3 +1,6 @@
+#ifndef MOVE_H
+#define MOVE_H
+
 // macros and prototypes for moving the mouse
 
 // MID = perfect distance
@@ -21,4 +24,4 @@ void turn(int direction);
 
 // Go forward 1 cell
 void track(void);
-
+#endif
