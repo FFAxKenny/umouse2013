@@ -49,8 +49,9 @@ void track(void) {
     int sensor = 0;
     int i = 0; // counter for adc sampling
     int avgADC = 0;  // sample 3 times and take average
-    int fADC = 0; // average front wall detect
-    int FFLAG = 0; // front wall flag
+//    int fADC = 0; // average front wall detect
+//    int FFLAG = 0; // front wall flag
+	int P = 3;
 
     while(DIR != STOP) {
         avgADC = 0;
@@ -105,21 +106,20 @@ void track(void) {
         // ***** THIS IS WHERE YOU BREAK POINT FOR DEBUG *
         // then you can keep pressing play and read values for sensor
         // remember to look at these values
-        ADCValue totalError      avgADC  sensor
-            if(STEP == 190)  // this is for front wall detect
-            {
-                fADC = 0;
-                for(i=0;i<3;i++)
-                {   
-                    //Convert
-                    ADCValue = ADC_Sample(2);
-                    fADC += ADCValue;
-                }
-                fADC /= 3;
-                if(fADC > 1000) FFLAG = 1;
-                else FFLAG = 0;
-            }
-
+        // ADCValue totalError      avgADC  sensor
+//            if(STEP == 190)  // this is for front wall detect
+//            {
+//                fADC = 0;
+//                for(i=0;i<3;i++)
+//                {   
+//                    //Convert
+//                    ADCValue = ADC_Sample(2);
+//                    fADC += ADCValue;
+//                }
+//                fADC /= 3;
+//                if(fADC > 1000) FFLAG = 1;
+//                else FFLAG = 0;
+//            }
     }
 }
 
