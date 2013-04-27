@@ -55,6 +55,20 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
 //			}
 //		}
 	}
+	else if( DIR == R_FORE) {
+        // pulse right motor forward
+		R_IND += 1;	
+        R_IND %= 4;
+        PORTB = (PORTB & RS_AND) + R_SEQ[R_IND];
+		DIR = STOP;
+	}
+	else if( DIR == R_BACK) {
+        // pulse right motor backward
+		R_IND += 3;	
+        R_IND %= 4;
+        PORTB = (PORTB & RS_AND) + R_SEQ[R_IND];
+		DIR = STOP;
+	}
 	// stop
     else	{
         PORTB = (PORTB & RS_AND);
@@ -83,10 +97,23 @@ void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void)
         L_IND %= 4;
         PORTB = (PORTB & LS_AND) + L_SEQ[L_IND];
     }
+	else if(DIR == L_FORE) {
+        // pulse left motor forward
+        L_IND += 1;	
+        L_IND %= 4;
+        PORTB = (PORTB & LS_AND) + L_SEQ[L_IND];
+		DIR = STOP;		
+	}
+	else if(DIR == L_BACK) {
+        // pulse left motor backward
+        L_IND += 3;	
+        L_IND %= 4;
+        PORTB = (PORTB & LS_AND) + L_SEQ[L_IND];
+		DIR = STOP;
+	}
 	// stop
     else	{
         PORTB = (PORTB & LS_AND);
-		DIR = STOP;
     }
 
     IFS0bits.T2IF = 0; // turn off TMR2 flag

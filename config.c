@@ -135,29 +135,25 @@ void config_interrupts(void) {
     IFS1bits.T4IF = 0; // turn off TMR4 flag
     T4CONbits.TCS = 0; // internal clock
 
+	DIR = STOP;
 	// start timers
     T1CONbits.TON = 1; // turn on timer 1
     T2CONbits.TON = 1; // turn on timer 2
-
-	// prevent inital drift
-	DIR = FORWARD;	// move forward for a while
-	// Use timer 4 to wait
-	delay_T4(5);
-	DIR = STOP;		// stop
-    PR1=PR1_MAP;  // reset to mapping speed
-    PR2=PR2_MAP;  // reset to mapping speed
-
-	// Use timer 4 to wait
-	delay_T4(5);
-
+//	// prevent inital drift
+//	DIR = FORWARD;	// move forward for a while
+//	// Use timer 4 to wait
+//	delay_T4(5);
+//	DIR = STOP;		// stop
+//    PR1=PR1_MAP;  // reset to mapping speed
+//    PR2=PR2_MAP;  // reset to mapping speed
+//
+//	// Use timer 4 to wait
+//
 	// Wait for go signal
-	while(ADC_Sample(0) < 2000);
+	while(ADC_Sample(2) < 2000);
 
 	// Use timer 4 to wait again
 	delay_T4(5);
-
-	// Go!
-	DIR = FORWARD;
 }
 
 // wait to start the timers

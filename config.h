@@ -5,7 +5,7 @@
 // for configuration and initialization
 
 // Values for right prescaler
-#define PR1_MAP		0x7000	// Max prescaler for tracking
+#define PR1_MAP		0x5000	// Max prescaler for tracking
 #define PR1_TRACK	0x0700	// CURRENT_MAX-PR1_TRACK = MAX_GAIN
 #define PR1_CORRECT	2		// Incremental gain
 #define PR1_INIT	0x8000	// To prevent inital drift

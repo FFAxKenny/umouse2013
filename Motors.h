@@ -11,6 +11,12 @@
 #define STOP 	 5
 #define TURN     6
 
+// correction macros
+#define R_FORE	7
+#define R_BACK	8
+#define L_FORE	9
+#define L_BACK	10
+
 // Values to AND for left and right sequence
 #define LS_AND	0b1100001111111111
 #define RS_AND	0b1111110000111111
@@ -28,7 +34,8 @@
 #define RS_3	0b0000000001000000
 
 // step count for turns
-#define R_STEP 81
-#define L_STEP 81
-#define T_STEP 162
+#define R_STEP 83
+#define L_STEP 84
+#define T_STEP 166
+#define F_STEP 204
 #endif

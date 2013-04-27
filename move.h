@@ -16,8 +16,13 @@
 #define TRF_MID
 #define TRF_DELTA
 
-// Correct off front wall
-void correct(void);
+#define RFC_MIN		4000
+#define RFC_MAX		4300
+#define LFC_MIN		3000
+#define LFC_MAX		3300
+
+// stop the mouse
+void stop(void);
 
 // Turn with direction from decide.c
 void turn(int direction);

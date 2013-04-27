@@ -1,5 +1,6 @@
 // move.c
 // move the mouse
+#include <stdbool.h>
 #include <p33FJ128MC802.h>
 #include "adc.h"
 #include "main.h"
@@ -7,10 +8,11 @@
 #include "move.h"
 #include "decide.h"
 #include "config.h"
+#include "delay_T4.h"
 
-// Correct off of front wall
-void correct(void) {
-    // nothing yet
+void stop(void) {
+	DIR = STOP;
+	delay_T4(1);
 }
 
 // Turn with direction from decide.c
@@ -51,7 +53,7 @@ void track(void) {
     int avgADC = 0;  // sample 3 times and take average
 //    int fADC = 0; // average front wall detect
 //    int FFLAG = 0; // front wall flag
-	int P = 3;
+	float P = 2;
 
     while(DIR != STOP) {
         avgADC = 0;
@@ -102,12 +104,12 @@ void track(void) {
             totalError *= -1;
         }
         PR1=PR1_MAP - totalError;
-        PR2=PR1_MAP + totalError;    
+        PR2=PR1_MAP + totalError;
         // ***** THIS IS WHERE YOU BREAK POINT FOR DEBUG *
         // then you can keep pressing play and read values for sensor
         // remember to look at these values
         // ADCValue totalError      avgADC  sensor
-//            if(STEP == 190)  // this is for front wall detect
+//            if(ST_COUNT >= 180 && ST_COUNT % 4 == 0)  // this is for front wall detect
 //            {
 //                fADC = 0;
 //                for(i=0;i<3;i++)
