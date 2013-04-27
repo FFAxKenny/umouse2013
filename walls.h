@@ -1,10 +1,10 @@
 // macros and prototypes for walls.c
 #include <stdbool.h>
 
-#define RF_THRESHOLD
-#define LF_THRESHOLD
-#define RIGHT_THRESHOLD
-#define LEFT_THRESHOLD
+#define RF_THRESHOLD	0
+#define LF_THRESHOLD	0
+#define RIGHT_THRESHOLD	0
+#define LEFT_THRESHOLD	0
 
 bool left_wall(void);
 bool front_wall(void);
