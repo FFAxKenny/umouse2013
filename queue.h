@@ -10,6 +10,7 @@ typedef struct{
     int head;
 } Queue;
 
+void init_queue(Queue * queue);
 void q_push(Queue * q, Cell * cellptr);
 Cell * q_pop(Queue * q);
 #endif
