@@ -1,6 +1,7 @@
 // maze.c
 // functions for maze
 #include <stdbool.h>
+#include <stdlib.h>
 #include "maze.h"
 #include "direction.h"
 #include "decide.h"
@@ -270,3 +271,69 @@ void set_c_val(Maze * maze, int x, int y, int val) {
 int get_c_val(Maze * maze, int x, int y) {
     return get_val(&(maze->cells[x][y]));
 }
+
+// functions useful for floodfill
+
+// has a wall in c_dir direction
+bool has_wall_dir(Maze * maze, int x, int y, int c_dir) {
+    switch(c_dir) {
+       // if north; get south of y+1
+       case N:
+            return has_s_wall(&(maze->cells[x][y+1]));
+            break;
+       // if west; get west of x,y
+       case W:
+            return has_w_wall(&(maze->cells[x][y]));
+            break;
+       // if south; get south of x,y
+       case S: 
+            return has_s_wall(&(maze->cells[x][y]));
+            break;
+       // if east; get west of x+1
+       case E: 
+            return has_w_wall(&(maze->cells[x+1][y]));
+            break;
+       default: return false;
+    }
+}
+// get a cell at position
+Cell * get_cell(Maze * maze, int x, int y) {
+    return &(maze->cells[x][y]);
+}
+// get cell in c_dir direction
+Cell * get_cell_dir(Maze * maze, int x, int y, int c_dir) {
+    switch(c_dir) {
+       case N:
+            return get_cell(maze,x,y+1);
+            break;
+       case W:
+            return get_cell(maze,x-1,y);
+            break;
+       case S: 
+            return get_cell(maze,x,y-1); 
+            break;
+       case E: 
+            return get_cell(maze,x+1,y);
+            break;
+       default: return NULL;
+    }
+}
+// get value of cell in c_dir direction
+int get_val_dir(Maze * maze, int x, int y, int c_dir) {
+    switch(c_dir) {
+       case N:
+            return get_c_val(maze,x,y+1);
+            break;
+       case W:
+            return get_c_val(maze,x-1,y);
+            break;
+       case S: 
+            return get_c_val(maze,x,y-1); 
+            break;
+       case E: 
+            return get_c_val(maze,x+1,y);
+            break;
+       default: return 0;
+    }
+}
+
