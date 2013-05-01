@@ -3,6 +3,8 @@
 #include <stdbool.h>
 #include "maze.h"
 #include "direction.h"
+#include "decide.h"
+#include "main.h"
 
 // initalize maze
 void init_maze(Maze * maze) {
@@ -35,6 +37,35 @@ void init_maze(Maze * maze) {
     for (x = 0 ; x < 17 ; x++) {
         set_s_wall(&(maze->cells[x][y]));
     }
+
+    // initialize cell values based on algorithm
+    if(ALG == TREMAUX) {
+        for(x = 0 ; x < 17 ; x++) {
+            for(y = 0 ; y < 17 ; y++) {
+                set_c_val(maze,x,y,0);
+            }
+        }
+	}
+	else if(ALG == FLOOD) {
+		// initialize bottom left quadrant
+		for(x = 0 ; x <=7 ; x++) {
+			for(y = 0 ; y <= 7 ; y++) {
+				set_c_val(maze,x,y,((7-x)+(7-y)));
+			}
+			for(y = 8 ; y <= 15 ; y++) {
+				set_c_val(maze,x,y,((7-x)+(y-8)));
+			}
+		}
+		// initialize bottom left quadrant
+		for(x = 8 ; x <=15 ; x++) {
+			for(y = 0 ; y <= 7 ; y++) {
+				set_c_val(maze,x,y,((x-8)+(7-y)));
+			}
+			for(y = 8 ; y <= 15 ; y++) {
+				set_c_val(maze,x,y,((x-8)+(y-8)));
+			}
+		}
+	}
 }
 
 // functions for front wall

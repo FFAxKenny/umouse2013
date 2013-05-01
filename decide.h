@@ -8,5 +8,11 @@
 #define U_TURN  3
 #define NO_TURN 4
 
+// choose an algorithm
+#define R_WALL  0
+#define L_WALL  1
+#define TREMAUX 3
+#define FLOOD   4
+
 int r_wall();
 #endif

@@ -2,8 +2,6 @@
 #define CELL_H
 #include <stdbool.h>
 
-#define C_INIT 0
-
 typedef struct{
     // walls
     bool s_wall;    // south wall

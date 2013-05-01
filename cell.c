@@ -7,7 +7,6 @@
 void init_cell(Cell * cell) {
     del_s_wall(cell);   // set south wall to false
     del_w_wall(cell);   // set west wall to false
-    set_val(cell, C_INIT); // set cell value to initial
 }
 
 // functions on south wall
