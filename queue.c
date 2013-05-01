@@ -1,4 +1,5 @@
 // A looped array queue
+#include <stdbool.h>
 #include "queue.h"
 
 void init_queue(Queue * queue) {
@@ -18,3 +19,9 @@ Cell * q_pop(Queue * q) {
     if (q->head >= MAX_ELEMENT) q->head = 0;
     return result;
 }
+
+bool is_empty(Queue * q){
+    if(q->head == q->tail) return true;
+    else return false;
+}
+
