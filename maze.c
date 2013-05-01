@@ -48,24 +48,6 @@ void init_maze(Maze * maze) {
         }
 	}
 	else if(ALG == FLOOD) {
-		// initialize bottom left quadrant
-		for(x = 0 ; x <=7 ; x++) {
-			for(y = 0 ; y <= 7 ; y++) {
-				set_c_val(maze,x,y,((7-x)+(7-y)));
-			}
-			for(y = 8 ; y <= 15 ; y++) {
-				set_c_val(maze,x,y,((7-x)+(y-8)));
-			}
-		}
-		// initialize bottom left quadrant
-		for(x = 8 ; x <=15 ; x++) {
-			for(y = 0 ; y <= 7 ; y++) {
-				set_c_val(maze,x,y,((x-8)+(7-y)));
-			}
-			for(y = 8 ; y <= 15 ; y++) {
-				set_c_val(maze,x,y,((x-8)+(y-8)));
-			}
-		}
 	}
 }
 
