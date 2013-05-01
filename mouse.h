@@ -16,7 +16,5 @@ void init_mouse(Mouse * mouse);
 void go_f(Mouse * mouse);
 
 // turn left/right/uturn
-void turn_l(Mouse * mouse);
-void turn_r(Mouse * mouse);
-void turn_u(Mouse * mouse);
+void go_turn(Mouse * mouse, int direction);
 #endif
