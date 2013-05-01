@@ -17,4 +17,10 @@ void go_f(Mouse * mouse);
 
 // turn left/right/uturn
 void go_turn(Mouse * mouse, int direction);
+
+// get x,y,c_dir
+int mouse_x(Mouse * mouse);
+int mouse_y(Mouse * mouse);
+int mouse_c_dir(Mouse * mouse);
 #endif
+

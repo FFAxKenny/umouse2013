@@ -47,3 +47,15 @@ void go_turn(Mouse * mouse, int turn) {
 			break;
 	}
 }
+
+// get x,y,c_dir
+int mouse_x(Mouse * mouse){
+    return mouse->x_pos;
+}
+int mouse_y(Mouse * mouse){
+    return mouse->y_pos;
+}
+int mouse_c_dir(Mouse * mouse){
+    return mouse->c_dir;
+}
+

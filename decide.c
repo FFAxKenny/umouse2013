@@ -3,6 +3,8 @@
 #include <stdbool.h>
 #include "walls.h"
 #include "decide.h"
+#include "flood.h"
+#include "direction.h"
 
 // all functions should return a turn value
 // L_TURN R_TURN U_TURN or NO_TURN
@@ -21,3 +23,11 @@ int l_wall(void) {
     else if (right_wall() == false) return R_TURN;
     else return U_TURN;
 }
+
+int flood(Maze * maze, Mouse * mouse, int x, int y) {
+    // flood maze
+    flood_maze(maze, x, y);
+    // get turn
+    return flood_turn(maze, mouse, N);
+}
+

@@ -1,5 +1,7 @@
 #ifndef DECIDE_H
 #define DECIDE_H
+#include "maze.h"
+#include "mouse.h"
 
 // protos and macros for decide.c
 #define L_TURN  0
@@ -13,5 +15,10 @@
 #define TREMAUX 3
 #define FLOOD   4
 
-int r_wall();
+int r_wall(void);
+
+int l_wall(void);
+
+// flood from start points x,y and return turn
+int flood(Maze * maze, Mouse * mouse, int x, int y);
 #endif

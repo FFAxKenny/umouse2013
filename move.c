@@ -16,7 +16,7 @@ void stop(void) {
 }
 
 // Turn with direction from decide.c
-void turn(int direction) {
+int turn(int direction) {
     // change the direction of the motors
     switch(direction) {
         case L_TURN:
@@ -39,7 +39,10 @@ void turn(int direction) {
 
     // wait for the turn to finish
     while(DIR != STOP);
+    // stop the mouse if not going straight
 	if(direction != NO_TURN) stop();
+
+    return direction;
 }
 
 // Go forward 1 cell

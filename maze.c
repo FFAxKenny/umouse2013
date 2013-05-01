@@ -7,6 +7,8 @@
 #include "decide.h"
 #include "main.h"
 #include "cell.h"
+#include "mouse.h"
+#include "walls.h"
 
 // initalize maze
 void init_maze(Maze * maze) {
@@ -318,5 +320,18 @@ int get_val_dir(Maze * maze, int x, int y, int c_dir) {
             break;
        default: return 0;
     }
+}
+
+// set wall values from mouse data
+void set_walls_mouse(Maze * maze, Mouse * mouse) {
+    int x = mouse_x(mouse),
+        y = mouse_y(mouse),
+        c_dir = mouse_c_dir(mouse);
+    // set right wall
+    if(right_wall() == true) set_r_wall(maze,x,y,c_dir);
+    // set front wall
+    if(front_wall() == true) set_f_wall(maze,x,y,c_dir);
+    // set left wall
+    if(left_wall() == true) set_l_wall(maze,x,y,c_dir);
 }
 

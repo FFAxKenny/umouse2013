@@ -25,7 +25,7 @@
 void stop(void);
 
 // Turn with direction from decide.c
-void turn(int direction);
+int turn(int direction);
 
 // Go forward 1 cell
 void track(void);

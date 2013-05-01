@@ -2,6 +2,7 @@
 #define MAZE_H
 #include <stdbool.h>
 #include "cell.h"
+#include "mouse.h"
 
 typedef struct{
     // Cells
@@ -34,4 +35,6 @@ Cell * get_cell(Maze * maze, int x, int y);
 Cell * get_cell_dir(Maze * maze, int x, int y, int c_dir);
 // get value of cell in c_dir direction
 int get_val_dir(Maze * maze, int x, int y, int c_dir);
+
+void set_walls_mouse(Maze * maze, Mouse * mouse);
 #endif

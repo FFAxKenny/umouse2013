@@ -4,6 +4,7 @@
 #include "queue.h"
 #include "cell.h"
 #include "direction.h"
+#include "decide.h"
 
 // fill for solving
 void init_fill(Maze * maze){
@@ -93,3 +94,44 @@ void flood_maze(Maze * maze, int start_x, int start_y) {
     }
 }
 
+// decide where to turn given moose
+int flood_turn(Maze * maze, Mouse * moose, int priority) {
+    int x = mouse_x(moose),
+        y = mouse_y(moose),
+        dir = mouse_c_dir(moose);
+
+    int new_dir,
+        temp_dir;
+
+    // check accessible neighbors
+    for(new_dir=priority ; has_wall_dir(maze,x,y,new_dir)==true ; new_dir=(new_dir+1)%4);
+    // new_dir should have first no_wall
+    for(temp_dir=new_dir ; temp_dir!=(priority+3)%4 ; temp_dir=(temp_dir+1)%4) {
+        // if temp 
+        if(has_wall_dir(maze,x,y,temp_dir) == false) {
+            // if accessed value is less than new value
+            if(get_val_dir(maze,x,y,temp_dir) < get_val_dir(maze,x,y,new_dir)) {
+                new_dir = temp_dir;
+            }
+        }
+    }
+    // return result
+    switch((new_dir - dir + 4) % 4) { // switch on delta dir
+        case 0: 
+            return NO_TURN;
+            break;
+        case 1:
+            return L_TURN;
+            break;
+        case 2:
+            return U_TURN;
+            break;
+        case 3:
+            return R_TURN;
+            break;
+        default:
+            return NO_TURN;
+            break;
+    }
+
+}
