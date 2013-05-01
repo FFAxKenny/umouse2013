@@ -13,3 +13,11 @@ int r_wall(void) {
     else if (left_wall() == false) return L_TURN;
     else return U_TURN;
 }
+
+int l_wall(void) {
+    // decide while getting walls
+    if (left_wall() == false) return L_TURN;
+    else if (front_wall() == false) return NO_TURN;
+    else if (right_wall() == false) return R_TURN;
+    else return U_TURN;
+}
