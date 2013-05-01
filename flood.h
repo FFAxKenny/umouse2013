@@ -7,6 +7,6 @@ void init_fill(Maze * maze);
 void back_fill(Maze * maze);
 
 // flood maze; starting with start_x and start_y
-void flood_maze(int start_x, int start_y);
+void flood_maze(Maze * maze, int start_x, int start_y);
 #endif
 
