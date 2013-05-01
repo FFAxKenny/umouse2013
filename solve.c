@@ -3,9 +3,17 @@
 #include "walls.h"
 #include "solve.h"
 #include "main.h"
+#include "mouse.h"
+#include "maze.h"
 
 // solve the maze
 void solve(void) {
+    Mouse mouse;
+    Maze  maze;
+
+    init_mouse(&mouse);
+    init_maze(&maze);
+
 	if(ALG == R_WALL) {	//right wall hug
 	    while (1){
 			// move forward 1 cell
@@ -19,8 +27,8 @@ void solve(void) {
 //	}
 //	else if(ALG == TREMAUX) {	//tremaux algorithm
 //	}
-//	else if(ALG == FLOOD) {	//floodfill
-//		
-//	}
+	else if(ALG == FLOOD) {	//floodfill
+		
+	}
 //	else {}
 }

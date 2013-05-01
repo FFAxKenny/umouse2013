@@ -7,8 +7,6 @@
 #include "motors.h"
 #include "adc.h"
 #include "delay_T4.h"
-#include "mouse.h"
-#include "maze.h"
 #include "decide.h"
 
 int L_IND;
@@ -25,10 +23,6 @@ int ST_COUNT;  // counter for steps
 int DIR; // direction
 
 int ALG; // algorithm
-
-Mouse MOUSE; // the mouse
-
-Maze MAZE; // the maze
 
 // initialize the mouse
 void init_all(void) {
@@ -79,10 +73,6 @@ void init_globals(void) {
 	DIR = FORWARD;
 
 	ALG = R_WALL;
-
-    init_maze(&MAZE);
-
-    init_mouse(&MOUSE);
 }
 
 // configure clock

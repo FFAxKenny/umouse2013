@@ -16,7 +16,7 @@ typedef struct{
 } Cell;
 
 // prototypes
-void init_cell(Cell * cell);
+void init_cell(Cell * cell, int x, int y);
 
 void set_s_wall(Cell * cell);
 void del_s_wall(Cell * cell);

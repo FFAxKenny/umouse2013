@@ -6,6 +6,7 @@
 #include "direction.h"
 #include "decide.h"
 #include "main.h"
+#include "cell.h"
 
 // initalize maze
 void init_maze(Maze * maze) {
@@ -15,7 +16,7 @@ void init_maze(Maze * maze) {
     // init all cells
     for (x = 0 ; x < 17 ; x++) {
         for (y = 0 ; y < 17 ; y++) {
-            init_cell(&(maze->cells[x][y]));
+            init_cell(&(maze->cells[x][y]),x,y);
         }
     }
 
