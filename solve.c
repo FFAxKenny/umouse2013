@@ -95,15 +95,15 @@ void solve(void) {
 	            // go back!
 	            go_turn(mouse_p, turn(U_TURN));
 	            PORTBbits.RB2 = 1;
+                // put down 10's
+                tremaux_increturn(maze_p, mouse_p);
 
-                while(mouse_x(mouse_p) != 1 || mouse_y(mouse_p) != 1) {
+
+                while(mouse_x(mouse_p) != 0 || mouse_y(mouse_p) != 0) {
                     // go forward
                     track();
                     // update mouse
                     go_f(mouse_p);
-
-                    // update maze
-                    set_walls_mouse(maze_p, mouse_p);
 
                     // put down 10's
                     tremaux_increturn(maze_p, mouse_p);
@@ -114,18 +114,15 @@ void solve(void) {
                     go_turn(mouse_p, turn(tremaux_return(maze_p, mouse_p)));
                 }
 
-                // go back!
-                go_turn(mouse_p, turn(U_TURN));
+                // put down 10's
+                tremaux_increspeed(maze_p, mouse_p);
+                PORTBbits.RB2 = 0;
 
-                while(mouse_x(mouse_p) != 1 || mouse_y(mouse_p) != 1) {
-                    PORTBbits.RB2 = 0;
+                while((mouse_x(mouse_p) > 8 || mouse_x(mouse_p) < 7) || (mouse_y(mouse_p) > 8 || mouse_y(mouse_p) < 7)) {
                     // go forward
                     track();
                     // update mouse
                     go_f(mouse_p);
-
-                    // update maze
-                    set_walls_mouse(maze_p, mouse_p);
 
                     // put down 10's
                     tremaux_increspeed(maze_p, mouse_p);
