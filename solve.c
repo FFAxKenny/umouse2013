@@ -29,10 +29,17 @@ void solve(void) {
 			turn(r_wall());
 		}
 	}
-//	else if(ALG == L_WALL) {	//left wall hug
-//	}
 //	else if(ALG == TREMAUX) {	//tremaux algorithm
 //	}
+	else if(ALG == L_WALL) {	//left wall hug
+	    while (1){
+			// move forward 1 cell
+			track();
+
+			// get direction and turn
+			turn(l_wall());
+		}
+	}
 	else if(ALG == TEST) {	//test algorithm
         // solve
         init_fill(maze_p);
