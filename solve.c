@@ -80,11 +80,12 @@ void solve(void) {
                 // get next turn
                 // turn
                 // update mouse
-                go_turn(mouse_p, turn(flood(maze_p, mouse_p, 7, 7)));
+                go_turn(mouse_p, turn(flood(maze_p, mouse_p, 8, 8)));
             }
 
             // return to start
             back_fill(maze_p);
+            go_turn(mouse_p, turn(U_TURN));
             while(mouse_x(mouse_p) != 0 || mouse_y(mouse_p) != 0) {
                 // go forward
                 track();
@@ -97,7 +98,7 @@ void solve(void) {
                 // get next turn
                 // turn
                 // update mouse
-                go_turn(mouse_p, turn(flood(maze_p, mouse_p, 0, 0)));
+                go_turn(mouse_p, turn(flood(maze_p, mouse_p, 1, 1)));
             }
         }
     }
