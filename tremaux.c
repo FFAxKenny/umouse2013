@@ -83,8 +83,42 @@ int tremaux_decide(Maze * maze, Mouse * moose) {
     }
 }
 
+// return to the beginning
 int tremaux_return(Maze * maze, Mouse * mouse) {
-    
+    int x = mouse_x(moose),
+        y = mouse_y(moose),
+        c_dir = mouse_c_dir(moose);
+
+    int new_dir = 0,
+        temp_dir,
+        i;
+
+
+    for(i = 0 ; i < 4 ; i++) {
+        temp_dir = dir_arry[i];
+        if(has_wall_dir(maze,x,y,temp_dir) == false) {
+            if(get_val_dir(maze,x,y,temp_dir) == 1) {
+                new_dir = temp_dir;
+            }
+        }
+    }
+
+    // return result
+    switch((new_dir - c_dir + 4) % 4) { // switch on delta dir
+        case 0: 
+            return NO_TURN;
+            break;
+        case 1:
+            return L_TURN;
+            break;
+        case 2:
+            return U_TURN;
+            break;
+        case 3:
+            return R_TURN;
+            break;
+        default:
+            return NO_TURN;
+            break;
+    }
 }
-
-

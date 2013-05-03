@@ -10,4 +10,6 @@ void tremaux_increment(Maze * maze, Mouse * mouse);
 
 int tremaux_decide(Maze * maze, Mouse * mouse);
 
+int tremaux_return(Maze * maze, Mouse * mouse);
+
 #endif
