@@ -16,16 +16,16 @@ void init_mouse(Mouse * mouse) {
 void go_f(Mouse * mouse) {
     switch(mouse->c_dir) {
         case N:
-			mouse->y_pos = mouse->y_pos+1;
+			mouse->y_pos++;
 			break;
         case W:
-			mouse->x_pos = mouse->x_pos-1;
+			mouse->x_pos--;
 			break;
         case S:
-			mouse->y_pos = mouse->y_pos-1;
+			mouse->y_pos--;
 			break;
         case E:
-			mouse->x_pos = mouse->x_pos+1;
+			mouse->x_pos++;
 			break;
         default: break;
     }
