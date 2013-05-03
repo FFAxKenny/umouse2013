@@ -12,6 +12,6 @@ void back_fill(Maze * maze);
 void flood_maze(Maze * maze, int start_x, int start_y);
 
 // decide where to turn given mouse
-int flood_turn(Maze * maze, Mouse * mouse, int priority);
+int flood_turn(Maze * maze, Mouse * mouse);
 #endif
 

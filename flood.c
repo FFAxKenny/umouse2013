@@ -108,28 +108,39 @@ void flood_maze(Maze * maze, int start_x, int start_y) {
 }
 
 // decide where to turn given moose
-int flood_turn(Maze * maze, Mouse * moose, int priority) {
+int flood_turn(Maze * maze, Mouse * moose) {
     int x = mouse_x(moose),
-        y = mouse_y(moose),
-        dir = mouse_c_dir(moose);
+		y = mouse_y(moose),
+		x_quad = (x >= 8),
+        y_quad = (y >= 8),
+        c_dir = mouse_c_dir(moose);
 
-    int new_dir,
-        temp_dir;
+    int low_val = INF_CELL,
+		new_dir = N,
+		temp_dir,
+		temp_val,
+		i;
 
-    // check accessible neighbors
-    for(new_dir=priority ; has_wall_dir(maze,x,y,new_dir)==true ; new_dir=(new_dir+1)%4);
-    // new_dir should have first no_wall
-    for(temp_dir=new_dir ; temp_dir!=(priority+3)%4 ; temp_dir=(temp_dir+1)%4) {
-        // if temp 
-        if(has_wall_dir(maze,x,y,temp_dir) == false) {
-            // if accessed value is less than new value
-            if(get_val_dir(maze,x,y,temp_dir) < get_val_dir(maze,x,y,new_dir)) {
-                new_dir = temp_dir;
-            }
-        }
-    }
+	int dir_arry[4] = {
+		c_dir,
+		((c_dir+5)-2*(!x_quad*(c_dir==0)+!y_quad*(c_dir==1)+x_quad*(c_dir==2)+y_quad*(c_dir==3)))%4,
+		((c_dir+3)-2*(!x_quad*(c_dir==0)+!y_quad*(c_dir==1)+x_quad*(c_dir==2)+y_quad*(c_dir==3)))%4,
+		(c_dir + 2)%4
+	};
+
+	for(i = 0 ; i < 4 ; i++) {
+		temp_dir = dir_arry[i];
+		if(has_wall_dir(maze,x,y,temp_dir)) {
+			temp_val = get_val_dir(maze,x,y,temp_dir);
+			if(temp_val > low_val) {
+				low_val = temp_val;
+				new_dir = temp_dir;
+			}
+		}
+	}
+
     // return result
-    switch((new_dir - dir + 4) % 4) { // switch on delta dir
+    switch((new_dir - c_dir + 4) % 4) { // switch on delta dir
         case 0: 
             return NO_TURN;
             break;
@@ -146,5 +157,4 @@ int flood_turn(Maze * maze, Mouse * moose, int priority) {
             return NO_TURN;
             break;
     }
-
 }

@@ -28,6 +28,6 @@ int flood(Maze * maze, Mouse * mouse, int x, int y) {
     // flood maze
     flood_maze(maze, x, y);
     // get turn
-    return flood_turn(maze, mouse, N);
+    return flood_turn(maze, mouse);
 }
 
