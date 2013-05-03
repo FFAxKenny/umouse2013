@@ -169,12 +169,12 @@ float D = 20;    //20
 */
 if(ST_COUNT % 3 == 0) {
 	avgADC = avg_adc(0);
-	if(avgADC > 3100)  // only push off 
+	if(avgADC > 3100)  // 3100 only push off 
 		errorP = (avgADC - 3250)/2; //3303
 	else 
 	{
 		avgADC = avg_adc(1);
-		if(avgADC > 1500)  // left sensor
+		if(avgADC > 1500)  // 1500 left sensor
 			errorP = (1850 - avgADC)/2; //2100
 		else errorP = 0;
 	}
@@ -197,7 +197,7 @@ if(ST_COUNT % 3 == 0) {
 		fADC += ADCValue;
 	}
 	fADC /= 3;
-	if(fADC > 3800) ST_COUNT = F_STEP; 
+	if(fADC > 3900) ST_COUNT = F_STEP; // 3800 
 	if(ST_COUNT == F_STEP)  // when enough steps are taken
 	{
 		DIR = STOP;		// stop turning
