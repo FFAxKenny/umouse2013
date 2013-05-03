@@ -12,9 +12,9 @@
 // choose an algorithm
 #define R_WALL  0
 #define L_WALL  1
-#define TREMAUX 3
-#define FLOOD   4
-#define	TEST	5
+#define TREMAUX 2
+#define FLOOD   3
+#define	TEST	4
 
 int r_wall(void);
 

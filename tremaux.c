@@ -23,7 +23,21 @@ void tremaux_increment(Maze * maze, Mouse * mouse) {
         y = mouse_y(mouse),
         c_dir = mouse_c_dir(mouse);
 
-    if(get_c_val(maze, x, y) == 1 && get_back_val(maze, mouse) >= 2);
+    int got_zero = 0,
+		temp_dir;
+
+    if(get_c_val(maze, x, y) == 1 && get_back_val(maze, mouse) >= 2) {
+        for(temp_dir = 0 ; temp_dir <= 3 ; temp_dir++) {
+            if(has_wall_dir(maze,x,y,temp_dir) == false) {
+                if(get_val_dir(maze,x,y,temp_dir) == 0) {
+                    got_zero = 1;
+                }
+            }
+        }
+        if(got_zero == 0) {
+            set_c_val(maze, x, y, get_c_val(maze, x, y)+1);
+        }
+    }
     else if (has_r_wall(maze, x, y, c_dir) &&
             has_f_wall(maze, x, y, c_dir) && 
             has_l_wall(maze, x, y, c_dir)) {

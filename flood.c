@@ -64,7 +64,6 @@ void flood_maze(Maze * maze, int start_x, int start_y) {
     Queue queue;
     Queue * q = &queue;
     init_queue(q);
-	delay_T4(2);
 
 	// init fill
 //	init_fill(maze);
@@ -92,7 +91,7 @@ void flood_maze(Maze * maze, int start_x, int start_y) {
 		        new_val = old_val;
 
 		        // check accessible neighbors
-		        for (dir = N ; dir <= E ; dir++) {
+		        for (dir = 0 ; dir <= 3 ; dir++) {
 		            if(has_wall_dir(maze,x,y,dir) == false) {
 		                temp_val = get_val_dir(maze,x,y,dir);
 		                // if accessed value is less than new value
@@ -106,7 +105,7 @@ void flood_maze(Maze * maze, int start_x, int start_y) {
 		        // otherwise, do nothing
 		        if(old_val != new_val) {
 		            set_val(cur_cell, new_val);
-		            for (dir = N ; dir <= E ; dir++) {
+		            for (dir = 0 ; dir <= 3 ; dir++) {
 		                if(has_wall_dir(maze,x,y,dir) == false) {
 		                    q_push(q, get_cell_dir(maze,x,y,dir));
 		                }
@@ -115,9 +114,6 @@ void flood_maze(Maze * maze, int start_x, int start_y) {
 	        }
 		}
     }
-	if(iterations <= 5) {
-		delay_T4(8);
-	}
 }
 
 // decide where to turn given moose
@@ -129,7 +125,7 @@ int flood_turn(Maze * maze, Mouse * moose) {
         c_dir = mouse_c_dir(moose);
 
     int low_val = INF_CELL,
-		new_dir = E,
+		new_dir = 3,
 		temp_dir,
 		temp_val,
 		i;

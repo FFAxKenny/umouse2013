@@ -146,7 +146,22 @@ void config_interrupts(void) {
     T2CONbits.TON = 1; // turn on timer 2
 
 	// Wait for lineup signal
-	while(ADC_Sample(2) < 2000);
+	while(ADC_Sample(2) < 2000) {
+		if(ADC_Sample(0) > 2000) {
+			ALG = (ALG + 3) % 4;
+			DIR = FORWARD;	// move forward for a while
+			// Use timer 4 to wait
+			delay_T4(2);
+			DIR = STOP;		// stop
+		}
+		if(ADC_Sample(1) > 2000) {
+			ALG = (ALG + 5) % 4;
+			DIR = FORWARD;	// move forward for a while
+			// Use timer 4 to wait
+			delay_T4(2);
+			DIR = STOP;		// stop
+		}
+	}
 
 	// prevent inital drift
 	DIR = FORWARD;	// move forward for a while
