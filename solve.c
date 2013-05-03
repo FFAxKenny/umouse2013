@@ -63,26 +63,29 @@ void solve(void) {
     else if(ALG == TREMAUX) {
         // fill maze with zeros and a 1
         tremaux_fill(maze_p);
+
+		// solve the maze!
+		while((mouse_x(mouse_p) > 8 || mouse_x(mouse_p) < 7) || (mouse_y(mouse_p) > 8 || mouse_y(mouse_p) < 7)) {
+		// go forward
+		track();
+		// update mouse
+		go_f(mouse_p);
+
+		// update maze
+		set_walls_mouse(maze_p, mouse_p);
+
+		// increment current cell value
+		tremaux_increment(maze_p, mouse_p);
+
+		// get next turn
+		// turn
+		// update mouse
+		go_turn(mouse_p, turn(tremaux_decide(maze_p, mouse_p)));
+		}
+
         while(1) {
-            while((mouse_x(mouse_p) > 8 || mouse_x(mouse_p) < 7) && (mouse_y(mouse_p) > 8 || mouse_y(mouse_p) < 7)) {
-                // go forward
-                track();
-                // update mouse
-                go_f(mouse_p);
-
-                // update maze
-                set_walls_mouse(maze_p, mouse_p);
-
-                // increment current cell value
-                tremaux_increment(maze_p, mouse_p);
-
-                // get next turn
-                // turn
-                // update mouse
-                go_turn(mouse_p, turn(tremaux_decide(maze_p, mouse_p)));
-            }
-
-
+			// go back!
+			go_turn(mouse_p, turn(U_TURN));
 
             while(mouse_x(mouse_p) != 1 || mouse_y(mouse_p) != 1) {
 				PORTBbits.RB2 = 1;
@@ -94,11 +97,37 @@ void solve(void) {
                 // update maze
                 set_walls_mouse(maze_p, mouse_p);
 
+				// put down 10's
+				tremaux_increturn(maze_p, mouse_p);
+
                 // get next turn
                 // turn
                 // update mouse
                 go_turn(mouse_p, turn(tremaux_return(maze_p, mouse_p)));
             }
+
+			// go back!
+			go_turn(mouse_p, turn(U_TURN));
+
+            while(mouse_x(mouse_p) != 1 || mouse_y(mouse_p) != 1) {
+				PORTBbits.RB2 = 1;
+                // go forward
+                track();
+                // update mouse
+                go_f(mouse_p);
+
+                // update maze
+                set_walls_mouse(maze_p, mouse_p);
+
+				// put down 10's
+				tremaux_increspeed(maze_p, mouse_p);
+
+                // get next turn
+                // turn
+                // update mouse
+                go_turn(mouse_p, turn(tremaux_speed(maze_p, mouse_p)));
+            }
+
         }
     }
     else if(ALG == FLOOD) {	//floodfill

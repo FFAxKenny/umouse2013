@@ -32,6 +32,22 @@ void tremaux_increment(Maze * maze, Mouse * mouse) {
     else set_c_val(maze, x, y, get_c_val(maze, x, y)+1);
 }
 
+// increment cell value on return
+void tremaux_increturn(Maze * maze, Mouse * mouse) {
+    int x = mouse_x(mouse),
+        y = mouse_y(mouse);
+
+    set_c_val(maze, x, y, 10);
+}
+
+// increment cell value on return
+void tremaux_increspeed(Maze * maze, Mouse * mouse) {
+    int x = mouse_x(mouse),
+        y = mouse_y(mouse);
+
+    set_c_val(maze, x, y, 1);
+}
+
 // increment cell value each time entering
 int tremaux_decide(Maze * maze, Mouse * moose) {
     int x = mouse_x(moose),
@@ -97,6 +113,44 @@ int tremaux_return(Maze * maze, Mouse * moose) {
     for(temp_dir = 0 ; temp_dir <= 3 ; temp_dir++) {
         if(has_wall_dir(maze,x,y,temp_dir) == false) {
             if(get_val_dir(maze,x,y,temp_dir) == 1) {
+                new_dir = temp_dir;
+            }
+        }
+    }
+
+    // return result
+    switch((new_dir - c_dir + 4) % 4) { // switch on delta dir
+        case 0: 
+            return NO_TURN;
+            break;
+        case 1:
+            return L_TURN;
+            break;
+        case 2:
+            return U_TURN;
+            break;
+        case 3:
+            return R_TURN;
+            break;
+        default:
+            return NO_TURN;
+            break;
+    }
+}
+
+// return to the end
+int tremaux_speed(Maze * maze, Mouse * moose) {
+    int x = mouse_x(moose),
+        y = mouse_y(moose),
+        c_dir = mouse_c_dir(moose);
+
+    int new_dir = 0,
+        temp_dir;
+
+
+    for(temp_dir = 0 ; temp_dir <= 3 ; temp_dir++) {
+        if(has_wall_dir(maze,x,y,temp_dir) == false) {
+            if(get_val_dir(maze,x,y,temp_dir) == 10) {
                 new_dir = temp_dir;
             }
         }
