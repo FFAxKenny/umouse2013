@@ -41,7 +41,7 @@ int tremaux_decide(Maze * maze, Mouse * moose) {
         c_dir = mouse_c_dir(moose);
 
     int low_val = INF_CELL,
-        new_dir = N,
+        new_dir = 0,
         temp_dir,
         temp_val,
         i;
@@ -94,7 +94,7 @@ int tremaux_return(Maze * maze, Mouse * moose) {
         temp_dir;
 
 
-    for(temp_dir = N ; temp_dir <= E ; temp_dir++) {
+    for(temp_dir = 0 ; temp_dir <= 3 ; temp_dir++) {
         if(has_wall_dir(maze,x,y,temp_dir) == false) {
             if(get_val_dir(maze,x,y,temp_dir) == 1) {
                 new_dir = temp_dir;
