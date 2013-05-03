@@ -2,6 +2,7 @@
 #include "maze.h"
 #include "mouse.h"
 #include "decide.h"
+#include "direction.h"
 
 void tremaux_fill(Maze * maze) {
     int x, y;
@@ -40,7 +41,7 @@ int tremaux_decide(Maze * maze, Mouse * moose) {
         c_dir = mouse_c_dir(moose);
 
     int low_val = INF_CELL,
-        new_dir = 0,
+        new_dir = N,
         temp_dir,
         temp_val,
         i;
@@ -84,18 +85,16 @@ int tremaux_decide(Maze * maze, Mouse * moose) {
 }
 
 // return to the beginning
-int tremaux_return(Maze * maze, Mouse * mouse) {
+int tremaux_return(Maze * maze, Mouse * moose) {
     int x = mouse_x(moose),
         y = mouse_y(moose),
         c_dir = mouse_c_dir(moose);
 
     int new_dir = 0,
-        temp_dir,
-        i;
+        temp_dir;
 
 
-    for(i = 0 ; i < 4 ; i++) {
-        temp_dir = dir_arry[i];
+    for(temp_dir = N ; temp_dir <= E ; temp_dir++) {
         if(has_wall_dir(maze,x,y,temp_dir) == false) {
             if(get_val_dir(maze,x,y,temp_dir) == 1) {
                 new_dir = temp_dir;
