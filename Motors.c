@@ -23,14 +23,14 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
 			DIR = STOP;		// stop turning
 			ST_COUNT=0;		// reset turn count
 		}
-/*		if(DIR == FORWARD && ST_COUNT == F_STEP)  // when enough steps are taken
+		if(DIR == FORWARD && ST_COUNT == F_STEP)  // when enough steps are taken
 		{
 			DIR = STOP;		// stop turning
 			ST_COUNT=0;		// reset turn count
 			PR1 = PR1_MAP;
 			PR2 = PR1_MAP;
 		}
-*/
+
     }
 	else if(DIR == BACKWARD || DIR == RIGHT || DIR == TURN)
 	{

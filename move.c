@@ -189,7 +189,7 @@ if(ST_COUNT % 3 == 0) {
     PR2=PR1_MAP + totalError;
 	}   
 	
-	fADC = 0;
+/*	fADC = 0;
 	for(i=0;i<3;i++)
 	{	
 		//Convert
@@ -205,6 +205,7 @@ if(ST_COUNT % 3 == 0) {
 		PR1 = PR1_MAP;
 		PR2 = PR1_MAP;
     }
+*/
 }
 }
 
