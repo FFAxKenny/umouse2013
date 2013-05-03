@@ -88,7 +88,7 @@ void flood_maze(Maze * maze, int start_x, int start_y) {
 	                temp_val = get_val_dir(maze,x,y,dir);
 	                // if accessed value is less than new value
 	                // new value = accessed + 1
-	                if(temp_val < new_val) new_val = temp_val + 1;
+	                if(temp_val <= new_val) new_val = temp_val + 1;
 	            }
 	        }
 
@@ -130,9 +130,9 @@ int flood_turn(Maze * maze, Mouse * moose) {
 
 	for(i = 0 ; i < 4 ; i++) {
 		temp_dir = dir_arry[i];
-		if(has_wall_dir(maze,x,y,temp_dir)) {
+		if(has_wall_dir(maze,x,y,temp_dir) == false) {
 			temp_val = get_val_dir(maze,x,y,temp_dir);
-			if(temp_val > low_val) {
+			if(temp_val < low_val) {
 				low_val = temp_val;
 				new_dir = temp_dir;
 			}
