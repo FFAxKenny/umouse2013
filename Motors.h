@@ -34,8 +34,8 @@
 #define RS_3	0b0000000001000000
 
 // step count for turns
-#define R_STEP 75
-#define L_STEP 75
-#define T_STEP 160
+#define R_STEP 85
+#define L_STEP 85
+#define T_STEP 167
 #define F_STEP 200
 #endif

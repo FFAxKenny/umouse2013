@@ -29,8 +29,6 @@ void solve(void) {
 			turn(r_wall());
 		}
 	}
-//	else if(ALG == TREMAUX) {	//tremaux algorithm
-//	}
 	else if(ALG == L_WALL) {	//left wall hug
 	    while (1){
 			// move forward 1 cell
@@ -66,6 +64,11 @@ void solve(void) {
             // solve
             init_fill(maze_p);
             while(mouse_x(mouse_p) != 7 || mouse_y(mouse_p) != 7) {
+				if (mouse_x(mouse_p) == 0 && mouse_y(mouse_p) == 7) PORTBbits.RB2 = 1;
+				else PORTBbits.RB2 = 0;
+				if (mouse_c_dir(mouse_p) == N) PORTBbits.RB3 = 1;
+				else PORTBbits.RB3 = 0;
+
                 // go forward
                 track();
                 // update mouse
