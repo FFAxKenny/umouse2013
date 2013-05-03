@@ -144,11 +144,15 @@ void config_interrupts(void) {
 	// start timers
     T1CONbits.TON = 1; // turn on timer 1
     T2CONbits.TON = 1; // turn on timer 2
-//	// prevent inital drift
-//	DIR = FORWARD;	// move forward for a while
-//	// Use timer 4 to wait
-//	delay_T4(5);
-//	DIR = STOP;		// stop
+
+	// Wait for lineup signal
+	while(ADC_Sample(2) < 2000);
+
+	// prevent inital drift
+	DIR = FORWARD;	// move forward for a while
+	// Use timer 4 to wait
+	delay_T4(5);
+	DIR = STOP;		// stop
 //    PR1=PR1_MAP;  // reset to mapping speed
 //    PR2=PR2_MAP;  // reset to mapping speed
 //
