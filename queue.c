@@ -1,27 +1,38 @@
 // A looped array queue
 #include <stdbool.h>
+#include <stdlib.h>
 #include "queue.h"
 
 void init_queue(Queue * queue) {
-    queue->head = 0;
-    queue->tail = 0;
+    if(queue != NULL) {
+        queue->head = 0;
+        queue->tail = 0;
+    }
 }
 
 void q_push(Queue * q, Cell * cellptr) {
-    q->element[q->tail] = cellptr;
-    q->tail++;
-    if (q->tail >= MAX_ELEMENT) q->tail = 0;
+    if(q != NULL) {
+        q->element[q->tail] = cellptr;
+        q->tail++;
+        if (q->tail >= MAX_ELEMENT) q->tail = 0;
+    }
 }
 
 Cell * q_pop(Queue * q) {
-    Cell * result = q->element[q->head];
-    q->head++;
-    if (q->head >= MAX_ELEMENT) q->head = 0;
-    return result;
+    if(q != NULL) {
+        Cell * result = q->element[q->head];
+        q->head++;
+        if (q->head >= MAX_ELEMENT) q->head = 0;
+        return result;
+    }
+    else return NULL;
 }
 
 bool is_empty(Queue * q){
-    if(q->head == q->tail) return true;
-    else return false;
+    if(q != NULL) {
+        if(q->head == q->tail) return true;
+        else return false;
+    }
+    else return true;
 }
 
