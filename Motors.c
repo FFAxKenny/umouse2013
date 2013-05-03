@@ -71,7 +71,6 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
 	}
 	// stop
     else	{
-        PORTB = (PORTB & RS_AND);
     }
 
     IFS0bits.T1IF = 0; // turn off TMR1 flag
@@ -113,7 +112,6 @@ void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void)
 	}
 	// stop
     else	{
-        PORTB = (PORTB & LS_AND);
     }
 
     IFS0bits.T2IF = 0; // turn off TMR2 flag
