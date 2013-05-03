@@ -62,6 +62,8 @@ void flood_maze(Maze * maze, int start_x, int start_y) {
     Queue queue;
     Queue * q = &queue;
     init_queue(q);
+	// init fill
+	init_fill(maze);
 
     // get the first cell
     q_push(q, get_cell(maze, start_x, start_y));
