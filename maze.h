@@ -37,4 +37,6 @@ Cell * get_cell_dir(Maze * maze, int x, int y, int c_dir);
 int get_val_dir(Maze * maze, int x, int y, int c_dir);
 
 void set_walls_mouse(Maze * maze, Mouse * mouse);
+
+int get_back_val(Maze * maze, Mouse * mouse);
 #endif

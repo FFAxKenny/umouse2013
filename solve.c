@@ -9,6 +9,7 @@
 #include "maze.h"
 #include "flood.h"
 #include "direction.h"
+#include "tremaux.h"
 
 // solve the maze
 void solve(void) {
@@ -59,14 +60,36 @@ void solve(void) {
             set_walls_mouse(maze_p, mouse_p);
 		}
 	}
+	else if(ALG == TREMAUX) {
+		// fill maze with zeros and a 1
+		tremaux_fill(maze_p);
+
+		while(mouse_x(mouse_p) != 7 || mouse_y(mouse_p) != 7) {
+			    // go forward
+                track();
+                // update mouse
+                go_f(mouse_p);
+
+                // update maze
+                set_walls_mouse(maze_p, mouse_p);
+
+				// increment current cell value
+				tremaux_increment(maze_p, mouse_p);
+
+                // get next turn
+                // turn
+                // update mouse
+                go_turn(mouse_p, turn(tremaux_decide(maze_p, mouse_p)));
+		}
+	}
 	else if(ALG == FLOOD) {	//floodfill
         while(1) {
             // solve
             init_fill(maze_p);
             while(mouse_x(mouse_p) != 7 || mouse_y(mouse_p) != 7) {
-				if (mouse_x(mouse_p) == 0 && mouse_y(mouse_p) == 7) PORTBbits.RB2 = 1;
+				if (mouse_x(mouse_p) == 7 /*&& mouse_y(mouse_p) == 8*/) PORTBbits.RB2 = 1;
 				else PORTBbits.RB2 = 0;
-				if (mouse_c_dir(mouse_p) == N) PORTBbits.RB3 = 1;
+				if (/*mouse_x(mouse_p) == 9 &&*/ mouse_y(mouse_p) == 7) PORTBbits.RB3 = 1;
 				else PORTBbits.RB3 = 0;
 
                 // go forward
@@ -80,7 +103,7 @@ void solve(void) {
                 // get next turn
                 // turn
                 // update mouse
-                go_turn(mouse_p, turn(flood(maze_p, mouse_p, 8, 8)));
+                go_turn(mouse_p, turn(flood(maze_p, mouse_p, 7, 7)));
             }
 
             // return to start

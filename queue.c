@@ -11,7 +11,7 @@ void init_queue(Queue * queue) {
 }
 
 void q_push(Queue * q, Cell * cellptr) {
-    if(q != NULL) {
+    if(q != NULL && cellptr != NULL) {
         q->element[q->tail] = cellptr;
         q->tail++;
         if (q->tail >= MAX_ELEMENT) q->tail = 0;

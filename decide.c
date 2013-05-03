@@ -5,6 +5,7 @@
 #include "decide.h"
 #include "flood.h"
 #include "direction.h"
+#include "tremaux.h"
 
 // all functions should return a turn value
 // L_TURN R_TURN U_TURN or NO_TURN
@@ -22,6 +23,14 @@ int l_wall(void) {
     else if (front_wall() == false) return NO_TURN;
     else if (right_wall() == false) return R_TURN;
     else return U_TURN;
+}
+
+int tremaux(Maze * maze, Mouse * mouse) {
+	// place values
+	
+
+	// return decision
+	return tremaux_decide(maze, mouse);
 }
 
 int flood(Maze * maze, Mouse * mouse, int x, int y) {

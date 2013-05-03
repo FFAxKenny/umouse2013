@@ -72,7 +72,7 @@ void init_globals(void) {
 	// Direction
 	DIR = FORWARD;
 
-	ALG = FLOOD;
+	ALG = TREMAUX;
 }
 
 // configure clock

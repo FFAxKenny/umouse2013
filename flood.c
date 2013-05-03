@@ -6,6 +6,7 @@
 #include "cell.h"
 #include "direction.h"
 #include "decide.h"
+#include "delay_T4.h"
 
 // fill for solving
 void init_fill(Maze * maze){
@@ -58,18 +59,23 @@ void flood_maze(Maze * maze, int start_x, int start_y) {
     int dir;
     int x;
     int y;
+	int iterations = 0;
     Cell * cur_cell;
     Queue queue;
     Queue * q = &queue;
     init_queue(q);
+	delay_T4(2);
+
 	// init fill
-	init_fill(maze);
+//	init_fill(maze);
 
     // get the first cell
     q_push(q, get_cell(maze, start_x, start_y));
 
     // while queue is not empty
     while(is_empty(q) != true) {
+		iterations++;
+
         // get cell
         cur_cell = q_pop(q);
 
@@ -81,32 +87,37 @@ void flood_maze(Maze * maze, int start_x, int start_y) {
     	    x = get_x(cur_cell);
 			y = get_y(cur_cell);
 
-	        // initialize new cell value
-	        new_val = old_val;
+			if(x >= 0 && x <= 15 && y >= 0 && y <= 15) {
+		        // initialize new cell value
+		        new_val = old_val;
 
-	        // check accessible neighbors
-	        for (dir = N ; dir <= E ; dir++) {
-	            if(has_wall_dir(maze,x,y,dir) == false) {
-	                temp_val = get_val_dir(maze,x,y,dir);
-	                // if accessed value is less than new value
-	                // new value = accessed + 1
-	                if(temp_val <= new_val) new_val = temp_val + 1;
-	            }
-	        }
-
-	        // if new value is different
-	        // update value and add all accessible neighbors to queue
-	        // otherwise, do nothing
-	        if(old_val != new_val) {
-	            set_val(cur_cell, new_val);
-	            for (dir = N ; dir <= E ; dir++) {
-	                if(has_wall_dir(maze,x,y,dir) == false) {
-	                    q_push(q, get_cell_dir(maze,x,y,dir));
-	                }
+		        // check accessible neighbors
+		        for (dir = N ; dir <= E ; dir++) {
+		            if(has_wall_dir(maze,x,y,dir) == false) {
+		                temp_val = get_val_dir(maze,x,y,dir);
+		                // if accessed value is less than new value
+		                // new value = accessed + 1
+		                if(temp_val <= new_val) new_val = temp_val + 1;
+		            }
+		        }
+	
+		        // if new value is different
+		        // update value and add all accessible neighbors to queue
+		        // otherwise, do nothing
+		        if(old_val != new_val) {
+		            set_val(cur_cell, new_val);
+		            for (dir = N ; dir <= E ; dir++) {
+		                if(has_wall_dir(maze,x,y,dir) == false) {
+		                    q_push(q, get_cell_dir(maze,x,y,dir));
+		                }
+					}
 	            }
 	        }
 		}
     }
+	if(iterations <= 5) {
+		delay_T4(8);
+	}
 }
 
 // decide where to turn given moose
@@ -118,7 +129,7 @@ int flood_turn(Maze * maze, Mouse * moose) {
         c_dir = mouse_c_dir(moose);
 
     int low_val = INF_CELL,
-		new_dir = N,
+		new_dir = E,
 		temp_dir,
 		temp_val,
 		i;

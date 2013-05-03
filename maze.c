@@ -277,6 +277,25 @@ int get_c_val(Maze * maze, int x, int y) {
     else return INF_CELL;
 }
 
+// functions for treumax
+int get_back_val(Maze * maze, Mouse * mouse) {
+	int x = mouse_x(mouse),
+		y = mouse_y(mouse);
+
+	switch(mouse_c_dir(mouse)) {
+		case N: return get_c_val(maze, x, y-1);
+				break;
+		case W: return get_c_val(maze, x+1, y);
+				break;
+		case S: return get_c_val(maze, x, y+1);
+				break;
+		case E: return get_c_val(maze, x-1, y);
+				break;
+		default: return 0;
+				break;
+	}
+}
+
 // functions useful for floodfill
 
 // has a wall in c_dir direction

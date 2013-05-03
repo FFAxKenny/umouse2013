@@ -20,6 +20,8 @@ int r_wall(void);
 
 int l_wall(void);
 
+int tremaux(Maze * maze, Mouse * mouse);
+
 // flood from start points x,y and return turn
 int flood(Maze * maze, Mouse * mouse, int x, int y);
 #endif
