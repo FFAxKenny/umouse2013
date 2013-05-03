@@ -28,6 +28,15 @@ void init_fill(Maze * maze){
             set_c_val(maze,x,y,((x-8)+(y-8)));
         }
     }
+	// initialize the rest
+	x = 16;
+	for(y = 0 ; y < 17 ; y++) {
+	    set_c_val(maze,x,y,INF_CELL);
+	}
+	y = 16;
+	for(x = 0 ; x < 17 ; x++) {
+	    set_c_val(maze,x,y,INF_CELL);
+	}
 }
 // fill for return to start
 void back_fill(Maze * maze){
