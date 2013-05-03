@@ -14,7 +14,32 @@ void stop(void) {
 	DIR = STOP;
 	delay_T4(2);
 }
+int avg_adc(int sensor)
+{
+	int i = 0;
+	int j = 0;
+	int temp = 0;
+	int read[3];
 
+	for(i=0;i<3;i++)
+	{	
+		//Convert
+		read[i] = ADC_Sample(sensor);
+	}
+    // the following two loops sort the array x in ascending order
+    for(i=0; i<2; i++) {
+        for(j=i+1; j<2; j++) {
+            if(read[j] < read[i]) {
+                // swap elements
+                temp = read[i];
+                read[i] = read[j];
+                read[j] = temp;
+            }
+        }
+    }
+        // else return the element in the middle
+        return read[1];
+}
 // Turn with direction from decide.c
 int turn(int direction) {
     // change the direction of the motors
@@ -55,15 +80,17 @@ void track(void) {
     int	errorD = 0;
     int	totalError = 0;
     int	oldErrorP = 0;
-    int sensor = 0;
     int i = 0; // counter for adc sampling
     int avgADC = 0;  // sample 3 times and take average
-//    int fADC = 0; // average front wall detect
+    int fADC = 0; // average front wall detect
 //    int FFLAG = 0; // front wall flag
-	float P = 2;
 
-    while(DIR != STOP) {
-        avgADC = 0;
+//	float P = 2;
+float P = 11;     //7
+float D = 20;    //20
+
+    while(DIR == FORWARD) {
+/*        avgADC = 0;
         for(i=0;i<3;i++)
         {   
             //Convert
@@ -138,6 +165,46 @@ void track(void) {
 //                if(fADC > 1000) FFLAG = 1;
 //                else FFLAG = 0;
 //            }
+
+*/
+if(ST_COUNT % 3 == 0) {
+	avgADC = avg_adc(0);
+	if(avgADC > 3100)  // only push off 
+		errorP = (avgADC - 3250)/2; //3303
+	else 
+	{
+		avgADC = avg_adc(1);
+		if(avgADC > 1500)  // left sensor
+			errorP = (1850 - avgADC)/2; //2100
+		else errorP = 0;
+	}
+	
+    	errorD = errorP - oldErrorP;
+		totalError = (P*errorP + D*errorD);
+		if(errorP > -20 && errorP < 20) totalError = 0;
+    	oldErrorP = errorP;
+	
+		
+	PR1=PR1_MAP - totalError;
+    PR2=PR1_MAP + totalError;
+	}   
+	
+	fADC = 0;
+	for(i=0;i<3;i++)
+	{	
+		//Convert
+		ADCValue = ADC_Sample(2);
+		fADC += ADCValue;
+	}
+	fADC /= 3;
+	if(fADC > 3800) ST_COUNT = F_STEP; 
+	if(ST_COUNT == F_STEP)  // when enough steps are taken
+	{
+		DIR = STOP;		// stop turning
+		ST_COUNT=0;		// reset turn count
+		PR1 = PR1_MAP;
+		PR2 = PR1_MAP;
     }
+}
 }
 
