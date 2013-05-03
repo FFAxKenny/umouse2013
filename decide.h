@@ -14,6 +14,7 @@
 #define L_WALL  1
 #define TREMAUX 3
 #define FLOOD   4
+#define	TEST	5
 
 int r_wall(void);
 
