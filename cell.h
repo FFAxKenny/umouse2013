@@ -2,6 +2,10 @@
 #define CELL_H
 #include <stdbool.h>
 
+#define NOX_CELL    -1
+#define NOY_CELL    -1
+#define INF_CELL    10000
+
 typedef struct{
     // walls
     bool s_wall;    // south wall
